@@ -1,9 +1,12 @@
-import { useContext } from "react";
 import { AiFillDelete } from "react-icons/ai";
-import { PostList } from "../store/post-list-store";
 
-const Post = ({ post }) => {
-  const { deletePost } = useContext(PostList);
+const Post = ({ post, postList, setPostlist }) => {
+  const handleDeletePost = (id) => {
+    const newPostList = postList.filter((postItem) => {
+      return postItem.id !== id;
+    });
+    setPostlist(newPostList);
+  };
 
   return (
     <div className="card post-card" style={{ width: "30rem" }}>
@@ -12,7 +15,7 @@ const Post = ({ post }) => {
           {post.title}
           <span
             className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-            onClick={() => deletePost(post.id)}
+            onClick={() => handleDeletePost(post.id)}
           >
             <AiFillDelete />
           </span>
